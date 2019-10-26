@@ -63,9 +63,6 @@
                 <div id="icon-weather-container" ></div>
                 <h3 id="today-forecast-temp"> </h3>
               </div>
-            
-                Quel temps fait'il aujourd'hui ?
-             
             </div>
           </div>
         </div>
@@ -81,7 +78,7 @@
             </h2>
             <div>
               <p id="tomorrow-forecast-more-info"></p>
-              <div id="icon-weather-container-deux" ></div>
+              <div id="tomorrow-icon-weather-container" ></div>
               <h3 id="tomorrow-forecast-temp"> </h3>
             </div>
           </div>
@@ -93,12 +90,12 @@
             <h4 class="my-0 font-weight-normal">Après demain</h4>
           </div>
           <div class="card-body">
-            <h2 id="today-forecast-main" class="card-title">
+            <h2 id="AD-forecast-main" class="card-title">
             </h2>
             <div>
-              <p id="today-forecast-more-info"></p>
-              <div id="icon-weather-container" ></div>
-              <h3 id="today-forecast-temp"> </h3>
+              <p id="AD-forecast-more-info"></p>
+              <div id="AD-icon-weather-container" ></div>
+              <h3 id="AD-forecast-temp"> </h3>
             </div>
           </div>
         </div>
@@ -107,6 +104,45 @@
         <div class="card mb-4 shadow-sm offset-sm-1">
           <div class="card-header">
             <h4 class="my-0 font-weight-normal">Encore après demain</h4>
+          </div>
+          <div class="card-body">
+            <h2 id="AAD-forecast-main" class="card-title">
+            </h2>
+            <div>
+              <p id="AAD-forecast-more-info"></p>
+              <div id="AAD-icon-weather-container" ></div>
+              <h3 id="AAD-forecast-temp"> </h3>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+<!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& --> 
+
+
+    <div class="container">
+      <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm offset-sm-1">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Plus grande humidité (filtrer) </h4>
+          </div>
+          <div class="card-body">
+            <h2 id="tomorrow-forecast-main" class="card-title">
+            </h2>
+            <div>
+              <p id="tomorrow-forecast-more-info"></p>
+              <div id="icon-weather-container-deux" ></div>
+              <h3 id="tomorrow-forecast-temp"> </h3>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card mb-4 shadow-sm offset-sm-1">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal"> sort </h4>
           </div>
           <div class="card-body">
             <h2 id="today-forecast-main" class="card-title">
@@ -120,9 +156,7 @@
         </div>
         
       </div>
-    </div>
-
-
+    
     <script src="js/API_Weather.js"></script>
     <script src="js/script.js"></script>
   </body>
