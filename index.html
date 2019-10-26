@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -20,7 +21,8 @@
     <!-- Axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
-  <body>
+
+  <body onload="start()">
     <div
       class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
     >
@@ -38,7 +40,11 @@
       <div class="input-group mb-5 offset-4 col-4">
         <input id="city-input" type="text" class="form-control" placeholder="Rentrer le nom d'une ville">
         <div class="input-group-append">
-          <button id="city-input-button" class="btn btn-success" type="submit">Actualiser</button>
+        	<!-- 
+          <button id="city-input-button" class="btn btn-success" type="submit" onclick="newCity()">Actualiser</button>
+           --> 
+            <button id="city-input-button" class="btn btn-success" type="submit" onclick="getThreeDayForecast()">Actualiser</button>
+           
         </div>
       </div>
     </div>
@@ -57,9 +63,9 @@
                 <div id="icon-weather-container" ></div>
                 <h3 id="today-forecast-temp"> </h3>
               </div>
-              <button type="button" class="btn btn-lg btn-block btn-primary button-load-forecast" onclick='start()'>
+            
                 Quel temps fait'il aujourd'hui ?
-              </button>
+             
             </div>
           </div>
         </div>
@@ -80,6 +86,8 @@
             </div>
           </div>
         </div>
+
+
         <div class="card mb-4 shadow-sm offset-sm-1">
           <div class="card-header">
             <h4 class="my-0 font-weight-normal">Après demain</h4>
@@ -94,6 +102,8 @@
             </div>
           </div>
         </div>
+
+
         <div class="card mb-4 shadow-sm offset-sm-1">
           <div class="card-header">
             <h4 class="my-0 font-weight-normal">Encore après demain</h4>
@@ -108,8 +118,11 @@
             </div>
           </div>
         </div>
+        
       </div>
     </div>
+
+
     <script src="js/API_Weather.js"></script>
     <script src="js/script.js"></script>
   </body>
