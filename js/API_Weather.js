@@ -36,12 +36,14 @@ class API_WEATHER{
       return axios
         //get data throught API 
         //Pour 7 jours: ?q=paris &units=metric &cnt=3& appid=4081444b7b90198136fefe6ed4ccf35b
-          .get(`${API_URL_3}?q=${this.city}&units=metric&cnt=3&appid=${API_KEY}`, {
+          .get(`${API_URL_3}?q=${this.city}&units=metric&cnt=16&appid=${API_KEY}`, {
       crossdomain: true
     })
   }
 
-
+  getCity() {
+      return this.city; 
+  }
 
   // Retourne l'element HTML de l'icon symbolisant la méteo.
   getHTMLElementFromIcon(icon){
