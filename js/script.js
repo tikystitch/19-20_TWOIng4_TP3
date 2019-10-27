@@ -5,14 +5,12 @@ const apiWeather = new API_WEATHER();
 // Fonction appelée lors du click du bouton
 function start() {
   // Création de l'objet apiWeather
-  //const apiWeather = new API_WEATHER();
   // Appel de la fonction fetchTodayForecast 
   apiWeather
     .fetchTodayForecast()
     .then(function(response) {
       // Récupère la donnée d'une API
       const data = response.data;
-
 
       // On récupère l'information principal
       const main = data.weather[0].main;
@@ -44,57 +42,6 @@ function newCity() {
 
 }
 
-/*
- * var elementsInvalides = 0;
-
-function filtrerParID(obj) {
-  // Si c'est un nombre
-  if (obj.id !== undefined && typeof(obj.id) === 'number' && !isNaN(obj.id)) {
-    return true;
-  } else {
-    elementsInvalides++;
-    return false;
-  }
-}
-
-var arrByID = arr.filter(filtrerParID);
-
- * 
- * 
-*/
-
-/*
- * Sort number: a et b sont des datas. genre 
- * function sortNumber(a, b) {
-  return a - b;
-}
-
-homes.sort(function(a, b) {
-    return parseFloat(a.price) - parseFloat(b.price);
-});
-
-var numArray = [140000, 104, 99];
-numArray.sort(sortNumber);
-
-*/
-
-
-function filtrerParSunrise(data) {
-
-    for (let i; i < 3; i++) {
-        if (data.list[i].humidity > 90 ){
-            return true; 
-        } else {
-        return false; 
-        }
-    }      
-}
-
-
-//Filter en fonction de la température moy > 20°C 
-//Les jours avec une temp > 20°C sont: J+
-
-
 //Utilisation du Sort 
 function sortHumidity(arr) {
 
@@ -120,7 +67,8 @@ function sortHumidity(arr) {
 //Filtrer temp min > 5°C
 function filterTempMin(arr) {
 
-    /*Pour le test 
+    //Pour le test 
+    /*
     alert(arr[0].temp.min);
     alert(arr[1].temp.min);
     alert(arr[2].temp.min);
@@ -135,12 +83,47 @@ function filterTempMin(arr) {
         document.getElementById('Filter-forecast-main').innerHTML = `Aucun`;
     }
     else {
-
         for (let i = 0; i < result.length; i++) {
             res.push(result[i].index);
         }
         document.getElementById('Filter-forecast-main').innerHTML = `Oui: J+${res.join("/  J+")}`;
     }
+}
+
+function mapCelsiusToFarenheit(arr) {
+
+
+    apiWeather
+        .fetchThreeForecast()
+        .then(function (response) {
+            // Récupère la donnée d'une API
+            const data = response.data;
+
+            //Map 
+            // site pour la conversion °C to °F: https://www.rapidtables.com/convert/temperature/celsius-to-fahrenheit.html
+            const map1 = arr.map(arr => arr.temp.day * (9 / 5) + 32);
+
+            var b = 0;
+
+            //On prend uniquement les 3 premiers jours
+            for (let pas = 0; pas < map1.length; pas++) {
+                
+                const main = data.list[pas].weather[0].main;
+                const description = data.list[pas].weather[0].description;
+                const icon = apiWeather.getHTMLElementFromIcon(data.list[pas].weather[0].icon);
+
+                b = b + 1;
+                // Modifier le DOM
+                document.getElementById(b + '-forecast-main-F').innerHTML = main;
+                document.getElementById(b + '-forecast-more-info-F').innerHTML = description;
+                document.getElementById(b + '-icon-weather-container-F').innerHTML = icon;
+                document.getElementById(b + '-forecast-temp-F').innerHTML = `${map1[pas]}°F`;
+            }
+
+        }).catch(function (error) {
+            // Affiche une erreur
+            console.error(error);
+        })
 }
 
 
@@ -181,8 +164,8 @@ function getThreeDayForecast() {
             sortHumidity(arr);
             //Filter
             filterTempMin(arr); 
-            
-
+            //Map
+            mapCelsiusToFarenheit(arr); 
         })
         .catch(function (error) {
             // Affiche une erreur
