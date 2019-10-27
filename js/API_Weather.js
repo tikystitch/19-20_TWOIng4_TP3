@@ -53,7 +53,7 @@ class API_WEATHER{
   //Set city
   setCity() {
       this.city = document.getElementById('city-input').value;
-      alert(this.city); 
+       
     }
 
 

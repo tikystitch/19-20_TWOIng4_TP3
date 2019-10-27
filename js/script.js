@@ -25,7 +25,8 @@ function start() {
       document.getElementById('today-forecast-more-info').innerHTML = description;
       document.getElementById('icon-weather-container').innerHTML = icon;
       document.getElementById('today-forecast-temp').innerHTML = `${temp}°C`;
-      
+       
+
     })
     .catch(function(error) {
       // Affiche une erreur
@@ -42,7 +43,76 @@ function newCity() {
     start(); 
 
 }
- 
+
+/*
+ * var elementsInvalides = 0;
+
+function filtrerParID(obj) {
+  // Si c'est un nombre
+  if (obj.id !== undefined && typeof(obj.id) === 'number' && !isNaN(obj.id)) {
+    return true;
+  } else {
+    elementsInvalides++;
+    return false;
+  }
+}
+
+var arrByID = arr.filter(filtrerParID);
+
+ * 
+ * 
+*/
+
+/*
+ * Sort number: a et b sont des datas. genre 
+ * function sortNumber(a, b) {
+  return a - b;
+}
+
+homes.sort(function(a, b) {
+    return parseFloat(a.price) - parseFloat(b.price);
+});
+
+var numArray = [140000, 104, 99];
+numArray.sort(sortNumber);
+
+*/
+
+
+function filtrerParSunrise(data) {
+
+    for (let i; i < 3; i++) {
+        if (data.list[i].humidity > 90 ){
+            return true; 
+        } else {
+        return false; 
+        }
+    }      
+}
+
+
+//Utilisation du Sort 
+function sortHumidity(arr) {
+
+    //Pour tester les valeurs d'humidité pour les 3 prochains jours
+    /*alert(arr[0].humidity);
+    alert(arr[1].humidity);
+    alert(arr[2].humidity);
+    */
+
+    //Pour le sort
+    //Du plus petit au plus grand
+    arr.sort(function (a, b) {
+        return b.humidity - a.humidity
+    });
+    alert("Le jour avec le plus d'humidité est le " + arr[0].index);
+
+    //Modifier le DOM
+    document.getElementById('Humidity-forecast-main').innerHTML = `J+${arr[0].index}`;
+    document.getElementById('Humidity-forecast-temp').innerHTML = `${arr[0].humidity}%`;
+}
+
+//Get les données pour les 3 prochains jours
 function getThreeDayForecast() {
 
     // Appel de la fonction fetchTodayForecast
@@ -52,14 +122,8 @@ function getThreeDayForecast() {
         .then(function (response) {
             // Récupère la donnée d'une API
             const data = response.data;
-
-            /*
-            //Pour filtrer: 
-            const filtreSup3 = data.filter(list => {
-                if (list > 3) return true; 
-                return false
-            })
-            */
+            var i = 0;
+            let arr = new Array(); //
 
             //On prend uniquement les 3 premiers jours
             for (let pas = 0; pas < 3; pas++) {
@@ -69,28 +133,21 @@ function getThreeDayForecast() {
                 const temp = data.list[pas].temp.day;
                 const icon = apiWeather.getHTMLElementFromIcon(data.list[pas].weather[0].icon);
 
-                if (pas === 0) {
-                    // Modifier le DOM
-                    document.getElementById('tomorrow-forecast-main').innerHTML = main;
-                    document.getElementById('tomorrow-forecast-more-info').innerHTML = description;
-                    document.getElementById('tomorrow-icon-weather-container').innerHTML = icon;
-                    document.getElementById('tomorrow-forecast-temp').innerHTML = `${temp}°C`;
-                }
-                if (pas === 1) {
-                    // Modifier le DOM
-                    document.getElementById('AD-forecast-main').innerHTML = main;
-                    document.getElementById('AD-forecast-more-info').innerHTML = description;
-                    document.getElementById('AD-icon-weather-container').innerHTML = icon;
-                    document.getElementById('AD-forecast-temp').innerHTML = `${temp}°C`;
-                }
-                if (pas === 2) {
-                    // Modifier le DOM
-                    document.getElementById('AAD-forecast-main').innerHTML = main;
-                    document.getElementById('AAD-forecast-more-info').innerHTML = description;
-                    document.getElementById('AAD-icon-weather-container').innerHTML = icon;
-                    document.getElementById('AAD-forecast-temp').innerHTML = `${temp}°C`;
-                }
+                //création d'un array pour sort etc accès donnée plus simple. 
+                arr.push(data.list[pas]);
+                arr[pas].index = pas+1;
+
+                i= i + 1;  
+                // Modifier le DOM
+                document.getElementById(i+'-forecast-main').innerHTML = main;
+                document.getElementById(i+'-forecast-more-info').innerHTML = description;
+                document.getElementById(i+'-icon-weather-container').innerHTML = icon;
+                document.getElementById(i+'-forecast-temp').innerHTML = `${temp}°C`;
             }
+
+            sortHumidity(arr); 
+           
+            
         })
         .catch(function (error) {
             // Affiche une erreur
