@@ -91,6 +91,10 @@ function filtrerParSunrise(data) {
 }
 
 
+//Filter en fonction de la température moy > 20°C 
+//Les jours avec une temp > 20°C sont: J+
+
+
 //Utilisation du Sort 
 function sortHumidity(arr) {
 
@@ -105,12 +109,40 @@ function sortHumidity(arr) {
     arr.sort(function (a, b) {
         return b.humidity - a.humidity
     });
-    alert("Le jour avec le plus d'humidité est le " + arr[0].index);
+    //test la sortie 
+    //alert("Le jour avec le plus d'humidité est le " + arr[0].index);
 
     //Modifier le DOM
     document.getElementById('Humidity-forecast-main').innerHTML = `J+${arr[0].index}`;
     document.getElementById('Humidity-forecast-temp').innerHTML = `${arr[0].humidity}%`;
 }
+
+//Filtrer temp min > 5°C
+function filterTempMin(arr) {
+
+    /*Pour le test 
+    alert(arr[0].temp.min);
+    alert(arr[1].temp.min);
+    alert(arr[2].temp.min);
+    */
+
+    //Pour stocker les index 
+    let res = new Array();
+
+    const result = arr.filter(arr => arr.temp.min > 5);
+
+    if (result.length == 0) {
+        document.getElementById('Filter-forecast-main').innerHTML = `Aucun`;
+    }
+    else {
+
+        for (let i = 0; i < result.length; i++) {
+            res.push(result[i].index);
+        }
+        document.getElementById('Filter-forecast-main').innerHTML = `Oui: J+${res.join("/  J+")}`;
+    }
+}
+
 
 //Get les données pour les 3 prochains jours
 function getThreeDayForecast() {
@@ -145,9 +177,12 @@ function getThreeDayForecast() {
                 document.getElementById(i+'-forecast-temp').innerHTML = `${temp}°C`;
             }
 
-            sortHumidity(arr); 
-           
+            //Sort 
+            sortHumidity(arr);
+            //Filter
+            filterTempMin(arr); 
             
+
         })
         .catch(function (error) {
             // Affiche une erreur
